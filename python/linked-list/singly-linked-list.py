@@ -25,7 +25,7 @@ class LinkedList:
         # how do we iterate
         current = self.head
         while (current):
-            yield current.data
+            yield current
             current = current.next
         return True
 
@@ -33,12 +33,35 @@ class LinkedList:
         """
         return a string representation of the object (LinkedList) 
         """
+        return "->".join(str(item.data) for item in self)
 
-        arr = []
-        for i in self:
-            arr.append(str(i))
-        return "->".join(arr)
+    def __len__(self):
+        """
+        return the len of a linked list
+        """
+        return len([str(item.data) for item in self])
 
+    def add_head(self, node):
+        if self.head == None:
+            self.head = node
+        else:
+            node.next = self.head
+            self.head = node
+    
+    def remove_node(self, node):
+        prev = None
+        if node == self.head:
+            self.head = node.next
+            return True
+
+        for n in self:
+            if n == node and prev != None:
+                prev.next = node.next
+                return True
+            prev = n
+        return False
+    
+    # def add_to_nth_node(self, nth, node):
 
 if __name__ == "__main__":
     n1 = Node(55)
@@ -51,8 +74,20 @@ if __name__ == "__main__":
     n2.next = n3
 
     print(f"Linked List head: {l1.head}")
+    print("length:",len(l1))
+    print()
 
-    print(n1)
-    print(n2)
-    print(n3)
-    print(l1)
+    print("before removing", l1)
+    l1.remove_node(n1)
+    print("after removing", l1)
+    print()
+    
+    print("before adding", l1)
+    l1.add_head(Node(1))
+    print("after adding", l1)
+    print()
+
+    print("before removing", l1)
+    l1.remove_node(n2)
+    print("after removing", l1)
+    print()

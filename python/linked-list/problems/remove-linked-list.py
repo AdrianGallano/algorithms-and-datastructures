@@ -2,14 +2,15 @@ class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
-    
+
     def __repr__(self):
         return f"Node(Data: {self.data} Pointer: {self.next})"
+
 
 class LinkedList:
     def __init__(self, head):
         self.head = head
-    
+
     def __repr__(self):
         datalist = []
         current = self.head
@@ -17,12 +18,12 @@ class LinkedList:
             datalist.append(str(current.data))
             current = current.next
         return "->".join(datalist)
-    
+
     def remove(self, n):
         """ 
         return: int - returns the value that has been remove  
         None if value does not exist
-          """
+        """
         prev = None
         current = self.head
         temp = None
@@ -35,10 +36,11 @@ class LinkedList:
                     temp = current
                     current = None
                     return temp.data
-                
+
             prev = current
             current = current.next
         return None
+
 
 if __name__ == "__main__":
     n1 = Node(1)
@@ -56,6 +58,4 @@ if __name__ == "__main__":
 
     res = l1.remove(3)
     print(l1)
-    print(res)
-
-
+    print("item popped", res)

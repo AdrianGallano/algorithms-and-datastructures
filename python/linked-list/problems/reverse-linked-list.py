@@ -9,23 +9,23 @@ class LinkedList:
         self.head = head
 
     def __repr__(self):
-      datalist = []
-      while(self.head):
-        datalist.append(str(self.head.data))
-        self.head = self.head.next
+        datalist = []
+        while (self.head):
+            datalist.append(str(self.head.data))
+            self.head = self.head.next
 
-      return "->".join(datalist)
+        return "->".join(datalist)
 
     def reverse_linked_list(self):
         prev = None
-        while(self.head): # 1->2->3->4->5->None 
+        while (self.head):  # 1->2->3->4->5->None
             nextData = self.head.next
             self.head.next = prev
             prev = self.head
             self.head = nextData
         return prev
 
-    
+
 if __name__ == "__main__":
     n1 = Node(1)
     n2 = Node(2)
@@ -44,6 +44,6 @@ if __name__ == "__main__":
 
     print(l1)
 
-    while(l1.head):
+    while (l1.head):
         print(l1.head.data)
         l1.head = l1.head.next

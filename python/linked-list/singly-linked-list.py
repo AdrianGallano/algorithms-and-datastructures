@@ -47,22 +47,45 @@ class LinkedList:
         else:
             node.next = self.head
             self.head = node
+        return self.head
 
     def remove_node(self, node):
-        prev = None
         if node == self.head:
             self.head = node.next
-            return True
+            return node
 
         for n in self:
+            prev = None
             if n == node and prev != None:
                 prev.next = node.next
-                return True
+                return node
             prev = n
         return False
 
+    def add_tail(self, node):
+        return self.add_to_nth_node(self.__len__(), node)
+
+    def remove_nth_node(self, nth):
+        if nth >= 0 or nth <= self.__len__() - 1:
+            if nth == 0:
+                self.head = self.head.next
+                return self.head
+            else:
+                prev = None
+                current = self.head
+                for _ in range(nth):
+                    prev = current
+                    current = current.next
+                print(current)
+                print(prev)
+                prev.next = current.next
+                
+                return current
+        else:
+            raise "Out of bounds"
+
     def add_to_nth_node(self, nth, node):
-        if self.__len__() >= nth and nth < 0 :
+        if self.__len__() >= nth or nth >= 0 :
             if nth == 0:
                 node.next = self.head
                 self.head = node
@@ -70,7 +93,7 @@ class LinkedList:
                 curr = self.head.next
                 prev = self.head
 
-                for i in range(1, nth):
+                for _ in range(1, nth):
                     curr = curr.next
                     prev = prev.next
                 prev.next = node
@@ -121,5 +144,10 @@ if __name__ == "__main__":
 
     l1.add_to_nth_node(4, Node(250))
     print(f"after adding to 4", Node(250))
+    print(l1)
+    print()
+
+    l1.remove_nth_node(len(l1) - 1)
+    print(f"after removing 1st node")
     print(l1)
     print()

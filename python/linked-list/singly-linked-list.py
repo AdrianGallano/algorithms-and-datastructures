@@ -47,7 +47,7 @@ class LinkedList:
         else:
             node.next = self.head
             self.head = node
-    
+
     def remove_node(self, node):
         prev = None
         if node == self.head:
@@ -60,8 +60,25 @@ class LinkedList:
                 return True
             prev = n
         return False
-    
-    # def add_to_nth_node(self, nth, node):
+
+    def add_to_nth_node(self, nth, node):
+        if self.__len__() >= nth and nth < 0 :
+            if nth == 0:
+                node.next = self.head
+                self.head = node
+            else:
+                curr = self.head.next
+                prev = self.head
+
+                for i in range(1, nth):
+                    curr = curr.next
+                    prev = prev.next
+                prev.next = node
+                node.next = curr
+
+            return self.head
+        else:
+            raise "Out of bounds"
 
 if __name__ == "__main__":
     n1 = Node(55)
@@ -74,14 +91,14 @@ if __name__ == "__main__":
     n2.next = n3
 
     print(f"Linked List head: {l1.head}")
-    print("length:",len(l1))
+    print("length:", len(l1))
     print()
 
     print("before removing", l1)
     l1.remove_node(n1)
     print("after removing", l1)
     print()
-    
+
     print("before adding", l1)
     l1.add_head(Node(1))
     print("after adding", l1)
@@ -90,4 +107,19 @@ if __name__ == "__main__":
     print("before removing", l1)
     l1.remove_node(n2)
     print("after removing", l1)
+    print()
+
+    l1.add_to_nth_node(1, Node(16))
+    print(f"after adding to 1", Node(16))
+    print(l1)
+    print()
+
+    l1.add_to_nth_node(0, Node(80))
+    print(f"after adding to 0", Node(80))
+    print(l1)
+    print()
+
+    l1.add_to_nth_node(4, Node(250))
+    print(f"after adding to 4", Node(250))
+    print(l1)
     print()

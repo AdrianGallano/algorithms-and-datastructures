@@ -65,6 +65,9 @@ class LinkedList:
     def add_tail(self, node):
         return self.add_to_nth_node(self.__len__(), node)
 
+    def remove_tail(self):
+        return self.remove_nth_node(self.__len__() - 1)
+
     def remove_nth_node(self, nth):
         if nth >= 0 or nth <= self.__len__() - 1:
             if nth == 0:
@@ -76,8 +79,6 @@ class LinkedList:
                 for _ in range(nth):
                     prev = current
                     current = current.next
-                print(current)
-                print(prev)
                 prev.next = current.next
                 
                 return current
@@ -147,7 +148,12 @@ if __name__ == "__main__":
     print(l1)
     print()
 
-    l1.remove_nth_node(len(l1) - 1)
+    l1.remove_nth_node(0)
     print(f"after removing 1st node")
+    print(l1)
+    print()
+
+    l1.remove_nth_node(len(l1) - 1)
+    print(f"after removing last node")
     print(l1)
     print()

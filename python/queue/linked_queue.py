@@ -19,7 +19,7 @@ class LinkedList:
         return True
 
     def __repr__(self):
-        return "->".join(str(x.data )for x in self)
+        return "->".join(str(x.data)for x in self)
     
     def put(self, node):
         if self.front == None:
@@ -59,22 +59,24 @@ if __name__ == "__main__":
     n4 = Node(4)
     n5 = Node(5)
     n6 = Node(6)
-    n7 = Node(7)
-    n8 = Node(8)
-    n9 = Node(9)
-    n10 = None
 
     l1 = LinkedList()
+    # putting items
     l1.put(n1)
     l1.put(n2)
     l1.put(n3)
-    print(l1)
-    r = l1.get()
-    print(l1)
-    r1 = l1.get()
-    print(l1)
+
+    # getting items
+    l1.get()
+    l1.get()
+
+    # putting items
     l1.put(n4)
     l1.put(n5)
-    print(l1)
+
+    # rotating
     l1.rotate()
-    print(l1)
+
+    # putting and getting on a rotated queue
+    l1.put(n6)
+    l1.get()

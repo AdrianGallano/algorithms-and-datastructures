@@ -40,6 +40,18 @@ class LinkedList:
     def peek(self):
         return str(self.front)
     
+    def rotate(self):
+        current = self.front
+        prev = None
+        self.back = self.front
+        while current:
+            temp = current.next
+            current.next = prev
+            prev = current
+            current = temp
+        self.front = prev
+        return prev
+
 if __name__ == "__main__":
     n1 = Node(1)
     n2 = Node(2)
@@ -61,5 +73,8 @@ if __name__ == "__main__":
     print(l1)
     r1 = l1.get()
     print(l1)
-    r2 = l1.get()
+    l1.put(n4)
+    l1.put(n5)
+    print(l1)
+    l1.rotate()
     print(l1)

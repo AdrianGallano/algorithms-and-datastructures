@@ -87,20 +87,28 @@ class MaxHeap:
     return None
 
   def heapify(self):
-    pass
+    for i in range(len(self.heap) // 2, -1, -1):
+      self.sink(i)
 
 if __name__ == "__main__":
-    mHeap = MaxHeap([4,5,3,2,1])
-    mHeap.sink(0)
-    print(mHeap)
+    mHeap = MaxHeap([17,13,20,19,2,5,6,9,10,10,12])
+    mHeap2 = MaxHeap()
+    mHeap2.offer(17)
+    mHeap2.offer(13)
+    mHeap2.offer(20)
+    mHeap2.offer(19)
+    mHeap2.offer(2)
+    mHeap2.offer(5)
+    mHeap2.offer(6)
+    mHeap2.offer(9)
+    mHeap2.offer(10) 
+    mHeap2.offer(10)
+    mHeap2.offer(12)
 
-    # mHeap.offer(17)
-    # mHeap.offer(13)
-    # mHeap.offer(19)
-    # mHeap.offer(2)
-    # mHeap.offer(5)
-    # mHeap.offer(6)
-    # mHeap.offer(9)
-    # mHeap.offer(10) 
-    # mHeap.offer(10)
-    # mHeap.offer(12)
+    mHeap.heapify()
+    # print(mHeap)
+    # print(mHeap2)
+    heap = MaxHeap([10, 20, 30, 40, 50])
+    heap.remove(30)
+    heap.heapify()
+    print(heap)

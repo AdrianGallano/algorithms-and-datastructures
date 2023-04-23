@@ -2,15 +2,11 @@ def UnderflowError(Exception):
   pass
 
 class MaxHeap:
-  # left child is odd
-  # right child is even
-  # for parent of left child i - 1 // 2 
-  # for parent of right child i - 2 // 2
-  # for left child of parent 2(i) + 1
-  # for right child of parent 2(i) + 2
-
-  def __init__(self, heap = []):
-    self.heap = heap
+  def __init__(self, heap = None):
+    if heap == None:
+      self.heap = []
+    else:
+      self.heap = heap
 
   def __repr__(self):
     return str(self.heap)
@@ -18,7 +14,7 @@ class MaxHeap:
   def getParent(self, i):
     return (i-1) // 2 if i % 2 != 0 else (i-2) // 2
 
-  def getBiggerChild(self, left, right):
+  def getGreaterChild(self, left, right):
     if right <= len(self.heap) - 1:
       return left if self.heap[left] > self.heap[right] else right
     elif left == len(self.heap) - 1:
@@ -46,11 +42,11 @@ class MaxHeap:
       parent = (i-1) // 2 if i % 2 != 0 else (i-2) // 2
 
   def sink(self, i):
-    child = self.getBiggerChild(self.getLeftChild(i), self.getRightChild(i))
+    child = self.getGreaterChild(self.getLeftChild(i), self.getRightChild(i))
     while child != None and self.heap[child] > self.heap[i]:
       self.swap(i,child)
       i = child
-      child = self.getBiggerChild(self.getLeftChild(i), self.getRightChild(i))
+      child = self.getGreaterChild(self.getLeftChild(i), self.getRightChild(i))
 
   def poll(self): # also known as popLeft
     if len(self.heap) == 0:
@@ -75,12 +71,14 @@ class MaxHeap:
 
     self.swap(i, len(self.heap) - 1)
     self.heap.pop()
+
+    biggerChild = self.getGreaterChild(self.getLeftChild(i), self.getRightChild(i))
     if self.heap[self.getParent(i)] < self.heap[i]:
       self.swim(i)
-    elif self.heap[self.getBiggerChild(self.getLeftChild(i), self.getRightChild(i))] > self.heap[i]:
-      self.sink(i)
-    else:
-      pass
+    elif biggerChild  != None:
+      if biggerChild > self.heap[i]:
+        self.sink(i)
+
 
   def traverse(self, n):
     for i in range(len(self.heap)):
@@ -92,25 +90,17 @@ class MaxHeap:
     pass
 
 if __name__ == "__main__":
-    mHeap = MaxHeap()
-  
-    mHeap.offer(20)
-    mHeap.offer(17)
-    mHeap.offer(13)
-    mHeap.offer(19)
-    mHeap.offer(2)
-    mHeap.offer(5)
-    mHeap.offer(6)
-    mHeap.offer(9)
-    mHeap.offer(10) 
-    mHeap.offer(10)
-    mHeap.offer(12)
-    print(mHeap)
-    mHeap.poll()
+    mHeap = MaxHeap([4,5,3,2,1])
+    mHeap.sink(0)
     print(mHeap)
 
-    # print(mHeap)
-    # mHeap.remove(12)
-    # print(mHeap)
-    # mHeap.remove(19)
-    # print(mHeap)
+    # mHeap.offer(17)
+    # mHeap.offer(13)
+    # mHeap.offer(19)
+    # mHeap.offer(2)
+    # mHeap.offer(5)
+    # mHeap.offer(6)
+    # mHeap.offer(9)
+    # mHeap.offer(10) 
+    # mHeap.offer(10)
+    # mHeap.offer(12)

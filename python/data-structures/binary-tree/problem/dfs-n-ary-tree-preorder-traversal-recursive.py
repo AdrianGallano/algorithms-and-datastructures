@@ -16,3 +16,4 @@ class Solution:
             for child in root.children:
                 self.trav(child, l)
             return l
+        

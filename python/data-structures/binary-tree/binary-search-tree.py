@@ -8,7 +8,8 @@ class Node:
         self.right = None
     
     def __repr__(self):
-        return f"Node({self.val})"
+        return f"Node({self.val}) - L: {self.left.val if self.left else None} \
+R: {self.right.val if self.right else None}"
 
 class BinarySearchTree:
     def __init__(self, root = None):
@@ -25,21 +26,15 @@ class BinarySearchTree:
         queue = deque([self.root])
         while queue:
             item = queue.popleft()
-            if not item:
-                output.append("x")
-                continue
-            
-            output.append(str(item.val))
+            output.append(str(item))
+
             if item.left:
                 queue.append(item.left)
-            else:
-                queue.append(None)
             if item.right:
                 queue.append(item.right)
-            else:
-                queue.append(None)
 
-        return " ".join(output)
+
+        return "\n".join(output)
 
     def __reassign_node(self, node: Node | None, cnode: Node | None):
         if cnode:
@@ -215,7 +210,5 @@ if __name__ == "__main__":
     b1.insert(n7)
     b1.insert(n8)
     b1.insert(n9)
-    print(b1.search(None))
-    print(b1.search(7))
-    print(b1.search(35))
-    print(b1.search(20))
+    # b1.remove(8)
+    print(b1)

@@ -136,6 +136,62 @@ class BinarySearchTree:
             node.val = new_node.val
         return True
 
+    def level_traversal(self):
+        if not self.root: return "Tree is empty"
+        queue = deque([self.root])
+        output = []
+
+        while queue:
+            pop = queue.popleft()
+            output.append(pop.val)
+            if pop.left:
+                queue.append(pop.left)
+            if pop.right:
+                queue.append(pop.right)
+        return output
+
+    def preorder_traversal(self):
+        if not self.root: return "Tree is empty"
+        stack = [self.root]
+        output = []
+        while stack:
+            pop = stack.pop()
+            output.append(pop.val)
+
+            if pop.right:
+                stack.append(pop.right)
+            if pop.left:
+                stack.append(pop.left)
+        return output
+
+    def inorder_traversal(self):
+        if not self.root: return "Tree is empty"
+        stack = []
+        output = []
+        root = self.root
+        while root or stack:
+            if root:
+                stack.append(root)
+                root = root.left
+            else:
+                pop = stack.pop()
+                output.append(pop.val)
+                root = pop.right
+        return output
+
+    def postorder_traversal(self):
+        if not self.root: return "Tree is empty"
+        stack = [self.root]
+        output = []
+        while stack:
+            pop = stack.pop()
+            output.append(pop.val)
+
+            if pop.left:
+                stack.append(pop.left)
+            if pop.right:
+                stack.append(pop.right)
+        return output[::-1]
 
 if __name__ == "__main__":
     n1 = Node(20)
@@ -158,5 +214,7 @@ if __name__ == "__main__":
     b1.insert(n8)
     b1.insert(n9)
     print(b1)
-    print(b1.remove(20))
-    print(b1)
+    print(b1.level_traversal())
+    print(b1.preorder_traversal())
+    print(b1.inorder_traversal())
+    print(b1.postorder_traversal())

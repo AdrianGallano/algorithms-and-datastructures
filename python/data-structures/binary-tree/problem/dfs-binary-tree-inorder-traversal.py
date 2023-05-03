@@ -18,5 +18,5 @@ class Solution:
             else:
                 popped = stack.pop()
                 output.append(popped)
-                root = root.right
+                root = popped.right
         return output

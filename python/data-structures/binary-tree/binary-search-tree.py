@@ -105,18 +105,20 @@ class BinarySearchTree:
         return True
 
     def search(self, value):
+        if not value:
+            return "Value should be valid"
+        
         if not self.root:
             return "Tree is empty"
         
-        queue = deque([self.root])
-        while queue:
-            pop = queue.popleft()
-            if pop.val == value:
-                return pop
-            if pop.left:
-                queue.append(pop.left)
-            if pop.right:
-                queue.append(pop.right)
+        root = self.root
+        while root:
+            if root.val > value:
+                root = root.left
+            elif root.val < value:
+                root = root.right
+            else:
+                return root
         else:
             return False
     
@@ -213,8 +215,7 @@ if __name__ == "__main__":
     b1.insert(n7)
     b1.insert(n8)
     b1.insert(n9)
-    print(b1)
-    print(b1.level_traversal())
-    print(b1.preorder_traversal())
-    print(b1.inorder_traversal())
-    print(b1.postorder_traversal())
+    print(b1.search(None))
+    print(b1.search(7))
+    print(b1.search(35))
+    print(b1.search(20))

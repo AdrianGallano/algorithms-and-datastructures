@@ -124,15 +124,17 @@ class BinarySearchTree:
         node = self.search(value)
         if not node:
             return "Node doesn't exist"
-
-        if not (node.left and node.right):
+        if not node.left and not node.right:
             self.__reassign_node(node, None)
         elif not node.right:
             self.__reassign_node(node, node.left)
         elif not node.left:
             self.__reassign_node(node, node.right)
         else: # hard part
-            pass
+            new_node = self.get_max(node.left)
+            self.remove(new_node.val)
+            node.val = new_node.val
+        return True
 
 
 if __name__ == "__main__":
@@ -155,5 +157,6 @@ if __name__ == "__main__":
     b1.insert(n7)
     b1.insert(n8)
     b1.insert(n9)
-    print(b1.get_max())
-    ns = b1.search(35)
+    print(b1)
+    print(b1.remove(20))
+    print(b1)

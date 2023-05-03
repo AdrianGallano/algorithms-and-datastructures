@@ -3,6 +3,7 @@ from collections import deque
 class Node:
     def __init__(self, val = 0):
         self.val = val
+        self.parent = None
         self.left = None
         self.right = None
     
@@ -40,6 +41,40 @@ class BinarySearchTree:
 
         return " ".join(output)
 
+    def __reassign_node(self, node: Node | None, cnode: Node | None):
+        if cnode:
+            cnode.parent = node.parent
+        if  node.parent:
+            if self.is_right(node):
+                node.parent.right = cnode
+            else:
+                node.parent.left = cnode
+        else:
+            self.root = None
+
+    def is_right(self, node):
+        if node.parent.right == node:
+            return True
+        return False
+    
+    def get_min(self, root = None):
+        if root == None:
+            if self.root == None:
+                return None
+            root = self.root 
+        while root.left:
+            root = root.left
+        return root
+
+    def get_max(self, root = None):
+        if root == None:
+            if self.root == None:
+                return None
+            root = self.root
+        while root.right:
+            root = root.right
+        return root
+
     def insert(self, data):
         if not data:
             return False
@@ -47,7 +82,7 @@ class BinarySearchTree:
         if not self.root:
             self.root = data
             return True
-        
+        parent = None
         current_root = self.root
         while current_root:
             if data.val < current_root.val:
@@ -55,15 +90,18 @@ class BinarySearchTree:
                     current_root = current_root.left
                 else:
                     current_root.left = data
+                    data.parent = parent
                     break
             elif data.val > current_root.val:
                 if current_root.right:
                     current_root = current_root.right
                 else:
                     current_root.right = data
+                    data.parent = parent
                     break
             else:
                 return False
+            parent = current_root
         return True
 
     def search(self, value):
@@ -82,8 +120,19 @@ class BinarySearchTree:
         else:
             return False
     
-    def remove(self):
-        pass
+    def remove(self, value):
+        node = self.search(value)
+        if not node:
+            return "Node doesn't exist"
+
+        if not (node.left and node.right):
+            self.__reassign_node(node, None)
+        elif not node.right:
+            self.__reassign_node(node, node.left)
+        elif not node.left:
+            self.__reassign_node(node, node.right)
+        else: # hard part
+            pass
 
 
 if __name__ == "__main__":
@@ -106,5 +155,5 @@ if __name__ == "__main__":
     b1.insert(n7)
     b1.insert(n8)
     b1.insert(n9)
-    print(b1)
-    print(b1.search(35))
+    print(b1.get_max())
+    ns = b1.search(35)
